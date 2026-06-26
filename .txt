@@ -1,0 +1,16 @@
+FRONTEND
++ npm create vite@latest client
++ npm i tailwindcss @tailwindcss/vite
++  npm i @ reduxjs/toolkit rect-redux 
++  npm i react-router
++ npm i lucide-react
++ npm i axios
+
+BACKEND
++ npm init -y
++ npm i mongoose express dotenv jsonwebtoken cookie-parser cors morgan
++npm i -D nodemon
++npm i passport passport-google-oauth20
++ npm install express-validator
++ npm i @imagekit/nodejs
++ npm i multer
