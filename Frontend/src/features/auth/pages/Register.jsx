@@ -14,6 +14,8 @@ const Register = () => {
 
   // const {handleRegister}=useAuth()
   const navigate = useNavigate()
+   const [showGoogleModel, setshowGoogleModel] = useState(false)
+  const [GoogleRole, setGoogleRole] = useState('buyer')
   const [form, setform] = useState({
     email: '',
     contact: '',
@@ -145,23 +147,18 @@ const Register = () => {
             {/* google */}
             <div className="mt-5">
               <button
-                type="button"
-                onClick={() => {
-                  window.location.href =
-                    "http://localhost:5000/api/auth/google";
-                }}
-                className="w-full mt-2 flex items-center justify-center gap-3 rounded-lg py-2 cursor-pointer hover:underline transition"
-              >
-                <img
-                  src="https://www.svgrepo.com/show/475656/google-color.svg"
-                  alt="Google"
-                  className="w-5 h-5"
-                />
+  type="button"
+  onClick={() => setshowGoogleModel(true)}
+  className="w-full mt-2 flex items-center justify-center gap-3 rounded-lg py-2 cursor-pointer hover:underline"
+>
+  <img
+    src="https://www.svgrepo.com/show/475656/google-color.svg"
+    className="w-5 h-5"
+  />
 
-                <span className="text-sm font-medium text-gray-700">
-                  Continue with Google
-                </span>
-              </button>
+  <span>Continue with Google</span>
+            </button>
+            
               <div className="flex items-center gap-2">
                 <div className="flex-1 h-px bg-[#470a7d62]"></div>
                 <p className="text-sm text-[#470a7d] font-medium">OR</p>
@@ -343,7 +340,68 @@ const Register = () => {
           </p>
         </div>
       </div>
+
+
+        {
+  showGoogleModel && (
+    <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50">
+
+      <div className="bg-white/85  rounded-xl w-70 p-6 md:w-sm shadow-xl shadow-black/40">
+
+        <h2 className="text-xl font-bold mb-4 text-[#533071e0]">
+          Continue as
+        </h2>
+
+        <div className="space-y-3">
+
+          <label className="flex gap-2">
+            <input
+              type="radio"
+              value="buyer"
+              checked={GoogleRole === "buyer"}
+              onChange={(e) =>
+                setGoogleRole(e.target.value)
+              }
+            />
+
+            Buyer
+          </label>
+
+          <label className="flex gap-2">
+            <input
+              type="radio"
+              value="seller"
+              checked={GoogleRole === "seller"}
+              onChange={(e) =>
+                setGoogleRole(e.target.value)
+              }
+            />
+
+            Seller
+          </label>
+
+        </div>
+
+        <button
+          className="mt-6 p-4 bg-[#470a7db7] shadow-xl  shadow-black/40 cursor-pointer hover:bg-[#470a7ddb] text-white py-2 rounded-xl"
+          onClick={() => {
+            window.location.href =
+              `http://localhost:5000/api/auth/google?role=${GoogleRole}`;
+          }}
+        >
+          Continue Register
+        </button>
+
+      </div>
+
     </div>
+  )
+}
+    </div>
+
+
+
+
   );
 };
 

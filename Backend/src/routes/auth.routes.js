@@ -31,11 +31,12 @@ router.get("/me", authenticateUser, getMe);
 
 // GOOGLE LOGIN
 router.get(
-  "/google",
+  "/google", (req, res, next) =>{
   passport.authenticate("google", {
     scope: ["profile", "email"],
-  }),
-);
+     state: req.query.role,
+  })(req,res,next);
+});
 
 // GOOGLE CALLBACK
 router.get(

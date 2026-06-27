@@ -20,12 +20,17 @@ const App = () => {
   const loading = useSelector((state) => state.auth.loading);
   const cartItems=useSelector((state) => state.cart.carts?.[user?._id] || [])
   // AUTH
-  useEffect(() => {
-    const token = localStorage.getItem("token");
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
 
-    if (token) handleGetMe();
-    else dispatch(setLoading(false));
-  }, []);
+  //   if (token) handleGetMe();
+  //   else dispatch(setLoading(false));
+  // }, []);
+
+useEffect(() => {
+  console.log("APP LOADED");
+  handleGetMe();
+}, []);
 // LOAD CART AFTER USER COMES
  useEffect(() => {
   async function loadCart() {

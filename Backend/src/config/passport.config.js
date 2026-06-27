@@ -12,15 +12,16 @@ passport.use(
       clientSecret: config.GOOGLE_CLIENT_SECRET,
 
       callbackURL: "http://localhost:5000/api/auth/google/callback",
+       passReqToCallback: true,
     },
 
-    async (accessToken, refreshToken, profile, done) => {
+    async (req,accessToken, refreshToken, profile, done) => {
       try {
         console.log(
           "Callback URL:",
           "http://localhost:5000/api/auth/google/callback",
         );
-
+            profile.selectedRole = req.query.state;
         return done(null, profile);
       } catch (error) {
         console.log(

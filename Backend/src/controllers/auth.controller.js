@@ -149,9 +149,8 @@ export const googleCallback = async (req, res) => {
     const { id, displayName, emails, photos } = req.user;
 
     const email = emails[0].value;
-
     const profilePic = photos[0].value;
-
+    const role = req.user.selectedRole || "buyer";
     let user = await userModel.findOne({ email });
 
     // CREATE GOOGLE USER
@@ -161,7 +160,7 @@ export const googleCallback = async (req, res) => {
         googleId: id,
         username: displayName,
         profilePic,
-        role: "buyer",
+        role,
       });
     }
 
@@ -177,7 +176,11 @@ export const googleCallback = async (req, res) => {
     });
 
     // REDIRECT FRONTEND
-    res.redirect("http://localhost:5173/");
+    // res.redirect("http://localhost:5173/");
+    if (user.role === "seller") {
+    return res.redirect("http://localhost:5173/seller/dashboard");
+    }
+    return res.redirect("http://localhost:5173/");
   } catch (error) {
     console.log("Google auth error:", error);
 

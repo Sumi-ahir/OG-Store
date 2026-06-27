@@ -14,3 +14,8 @@ BACKEND
 + npm install express-validator
 + npm i @imagekit/nodejs
 + npm i multer
+
+
++CONTINUE WITH GOOGLR
+
+npm install @react-oauth/google

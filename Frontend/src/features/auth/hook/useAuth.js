@@ -23,13 +23,14 @@ export const useAuth=()=>{
     }
     async function handleGetMe(){
         try{
-            dispatch(setLoading(true))
+        console.log("GET ME CALLED");
+        dispatch(setLoading(true))
         const data=await getMe()
          console.log("GET ME RESPONSE:", data);
          dispatch(setUser(data.user))
-         dispatch(setLoading(false))
         }catch(error){
-            console.log(error);
+             console.log("GET ME ERROR:", error.response?.data);
+            dispatch(setUser(null));
             
         }finally{
             dispatch(setLoading(false))

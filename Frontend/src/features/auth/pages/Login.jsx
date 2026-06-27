@@ -14,6 +14,8 @@ import { clearSellerProducts } from "../../product/state/product.slice";
 const Login = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch();
+  // const [showGoogleModel, setshowGoogleModel] = useState(false)
+  // const [googleRole, setgoogleRole] = useState('buyer')
   const [form, setform] = useState({
     email: '',
     password: ''
@@ -90,9 +92,9 @@ const Login = () => {
   };
 
   return (
-    <div className='min-h-screen flex  '>
+    <div className='min-h-screen flex  w-full'>
       {/* LEFT SIDE */}
-      <div className="cursor-pointer hidden overflow-hidden relative  lg:flex w-1/1.2">
+      <div className="cursor-pointer hidden overflow-hidden relative  lg:flex lg:w-2/3 r">
         <img
           src={clothImage}
           alt="shopping"
@@ -116,7 +118,6 @@ const Login = () => {
       </div>
 
       {/* RIGHT SIDE */}
-
       <div className="w-full lg:w-1/3 flex items-center justify-center px-6 py-10 bg-[#AEAEAE]">
 
         <div className=" max-w-lg bg-white/5 border border-white/10 backdrop-blur-xl rounded-xl p-8 shadow-2xl">
@@ -133,24 +134,24 @@ const Login = () => {
 
           {/* google */}
           <div className="mt-5">
-            <button
-              type="button"
-              onClick={() => {
-                window.location.href =
-                  "http://localhost:5000/api/auth/google";
-              }}
-              className="w-full mt-2 flex items-center justify-center gap-3 rounded-lg py-2 cursor-pointer hover:underline transition"
-            >
-              <img
-                src="https://www.svgrepo.com/show/475656/google-color.svg"
-                alt="Google"
-                className="w-5 h-5"
-              />
+              <button
+                type="button"
+                onClick={() => {
+                  window.location.href =
+                    "http://localhost:5000/api/auth/google";
+                }}
+                className="w-full mt-2 flex items-center justify-center gap-3 rounded-lg py-2 cursor-pointer hover:underline transition"
+              >
+                <img
+                  src="https://www.svgrepo.com/show/475656/google-color.svg"
+                  alt="Google"
+                  className="w-5 h-5"
+                />
 
-              <span className="text-sm font-medium text-gray-700">
-                Continue with Google
-              </span>
-            </button>
+                <span className="text-sm font-medium text-gray-700">
+                  Continue with Google
+                </span>
+              </button>
             <div className="flex items-center gap-2 mb-3">
               <div className="flex-1 h-px bg-[#5f3b7e]"></div>
               <p className="text-sm text-[#470a7d] font-medium">OR</p>
@@ -277,6 +278,7 @@ const Login = () => {
 
     </div>
   )
+
 }
 
 export default Login
