@@ -3,7 +3,7 @@ dotenv.config();
 import app from "./src/app.js";
 import connectDB from "./src/config/db.js";
 import "./src/config/passport.config.js";
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 const startServer = async () => {
   console.log("AUTH ROUTES MOUNTED");
