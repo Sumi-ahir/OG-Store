@@ -23,7 +23,7 @@ app.use(
     origin: [
       "http://localhost:5173", 
       "http://localhost:5174",
-      "https://og-store-woad.vercel.app/"
+      "https://og-store-woad.vercel.app"
     ],
 
     methods: ["GET", "POST", "PUT", "DELETE"],
