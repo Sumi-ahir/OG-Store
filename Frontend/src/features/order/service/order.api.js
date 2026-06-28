@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const orderApi = axios.create({
-  baseURL: "http://localhost:5000/api/order",
+  // baseURL: "http://localhost:5000/api/order",
+    baseURL: `${import.meta.env.VITE_API_URL}/api/order`,
   withCredentials: true,
 });
 

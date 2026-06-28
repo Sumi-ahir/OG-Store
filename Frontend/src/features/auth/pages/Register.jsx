@@ -385,8 +385,10 @@ const Register = () => {
         <button
           className="mt-6 p-4 bg-[#470a7db7] shadow-xl  shadow-black/40 cursor-pointer hover:bg-[#470a7ddb] text-white py-2 rounded-xl"
           onClick={() => {
+            // window.location.href =
+            //   `http://localhost:5000/api/auth/google?role=${GoogleRole}`;
             window.location.href =
-              `http://localhost:5000/api/auth/google?role=${GoogleRole}`;
+  `${import.meta.env.VITE_API_URL}/api/auth/google?role=${GoogleRole}`;
           }}
         >
           Continue Register
