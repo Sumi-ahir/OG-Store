@@ -246,9 +246,9 @@ const Login = () => {
             </div>
 
             {/* Checkbox */}
-            <div className=" text-sm text-[#6d3a9a] text-end">
+            {/* <div className=" text-sm text-[#6d3a9a] text-end">
               <p>Forgot Passord</p>
-            </div>
+            </div> */}
 
             {/* Button */}
             <button

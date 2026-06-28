@@ -20,7 +20,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://localhost:5174"],
+    origin: [
+      "http://localhost:5173", 
+      "http://localhost:5174",
+      "https://og-store-woad.vercel.app/"
+    ],
+
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   }),
