@@ -4,36 +4,54 @@ import { config } from "../config/config.js";
 import bcrypt from "bcryptjs";
 
 // TOKEN
-async function sendTokenResponse(user, res, message) {
-  const token = jwt.sign({ id: user._id }, config.JWT_SECRET, {
-    expiresIn: "7d",
-  });
+// async function sendTokenResponse(user, res, message) {
+//   const token = jwt.sign({ id: user._id }, config.JWT_SECRET, {
+//     expiresIn: "7d",
+//   });
 
-  res.cookie("token", token, {
-    httpOnly: true,
-    secure: false,
-    sameSite: "lax",
-  });
+//   res.cookie("token", token, {
+//     httpOnly: true,
+//     secure: false,
+//     sameSite: "lax",
+//   });
 
-  return res.status(200).json({
-    success: true,
-    message,
-    token,
-    user: {
-      id: user._id,
-      email: user.email,
-      contact: user.contact,
-      username: user.username,
-      role: user.role,
-    },
-  });
-}
+//   return res.status(200).json({
+//     success: true,
+//     message,
+//     token,
+//     user: {
+//       id: user._id,
+//       email: user.email,
+//       contact: user.contact,
+//       username: user.username,
+//       role: user.role,
+//     },
+//   });
+// }
+export const sendTokenResponse = async(user,res,message)=>{
+
+ const token = user.getJWTToken();
+
+res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+  path: "/",
+  expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+});
+
+ res.status(200).json({
+   success:true,
+   message,
+   user
+ });
+};
 
 // REGISTER USER
 export const registerUser = async (req, res) => {
   console.log("REGISTER START");
 
-  const { email, contact, username, password, isSeller } = req.body;
+  const { email, contact,  username: fullname, password, isSeller } = req.body;
 
   try {
     // CHECK USER EXISTS
@@ -52,7 +70,7 @@ export const registerUser = async (req, res) => {
     const user = await userModel.create({
       email,
       contact,
-      username,
+       username: fullname,
       password,
       role: isSeller ? "seller" : "buyer",
     });
@@ -170,17 +188,20 @@ export const googleCallback = async (req, res) => {
     });
 
     // COOKIE
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: false,
-    });
+res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+  path: "/",
+  expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+});
 
     // REDIRECT FRONTEND
     // res.redirect("http://localhost:5173/");
     if (user.role === "seller") {
-    return res.redirect("http://localhost:5173/seller/dashboard");
+    return res.redirect(`${process.env.CLIENT_URL}/seller/dashboard`);
     }
-    return res.redirect("http://localhost:5173/");
+   return res.redirect(process.env.CLIENT_URL);
   } catch (error) {
     console.log("Google auth error:", error);
 

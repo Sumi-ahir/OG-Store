@@ -5,7 +5,7 @@ const orderSlice = createSlice({
 
   initialState: {
     shippingAddress: {
-      irstName: "",
+      FirstName: "",
       lastName: "",
       address1: "",
       address2: "",

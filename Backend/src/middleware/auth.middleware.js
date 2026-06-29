@@ -4,6 +4,10 @@ import userModel from "../models/user.model.js";
 import { config } from "../config/config.js";
 
 export const authenticateUser = async (req, res, next) => {
+    console.log("========== AUTH ==========");
+  console.log("Origin:", req.headers.origin);
+  console.log("Cookie Header:", req.headers.cookie);
+  console.log("Parsed Cookies:", req.cookies);
   const token = req.cookies.token;
 
   if (!token) {

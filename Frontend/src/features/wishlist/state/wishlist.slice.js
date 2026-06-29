@@ -20,25 +20,45 @@ const wishlistSlice=createSlice({
             if(!state.wishlist[userId]){
                 state.wishlist[userId]=[];
             }
-            state.wishlist[userId].push(product);
+            // state.wishlist[userId].push(product);
+             const exists = state.wishlist[userId].some(
+        (item) => item.productId === product.productId
+         );
+              if (!exists) {
+        state.wishlist[userId].push(product);
+         }
         },
 
 
-        removeWishlistItem:(state,action)=>{
+        // removeWishlistItem:(state,action)=>{
 
-            const {userId,productId}=action.payload;
-            state.wishlist[userId] =
-            state.wishlist[userId].filter(
-                (item)=>item.productId !== productId
-            );
-        }
+        //     const {userId,productId}=action.payload;
+        //     state.wishlist[userId] =
+        //     state.wishlist[userId].filter(
+        //         (item)=>item.productId !== productId
+        //     );
+        // }
+          removeWishlistItem: (state, action) => {
+      const { userId, productId } = action.payload;
+
+      if (!state.wishlist[userId]) return;
+
+      state.wishlist[userId] = state.wishlist[userId].filter(
+        (item) => item.productId !== productId
+      );
+    },
+
+    resetWishlist: (state) => {
+      state.wishlist = {};
+    },
     }
 })
 
 export const {
     setWishlist,
     addToWishlistItem,
-    removeWishlistItem
+    removeWishlistItem,
+    resetWishlist
 }=wishlistSlice.actions;
 
 

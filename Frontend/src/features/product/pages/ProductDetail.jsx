@@ -169,6 +169,7 @@ const ProductDetail = () => {
               </h1>
               <Heart
                 onClick={() => {
+                  console.log("Heart Clicked");
                   if (!checkBuyer()) return;
                   handleAddWishlist(product);
                 }}
@@ -215,7 +216,7 @@ const ProductDetail = () => {
 
 
             {/* Features */}
-            <div className="grid grid-cols-2  mt-4">
+            <div className="grid grid-cols-2 mt-4 mb-2">
 
 
               <div className="bg-slate-50 p-2 text-[#4e3a5fe5] rounded-xl">
@@ -241,9 +242,9 @@ const ProductDetail = () => {
               {isInCart ? (
                 <button
                   onClick={() => navigate("/cart")}
-                  className="flex-1 cursor-pointer py-3 bg-[#4e3a5fe5] text-white rounded-xl px-6"
+                  className="flex-1 cursor-pointer py-3 bg-[#4e3a5fe5] text-white rounded-xl "
                 >
-                  View Cart
+                  View
                 </button>
               ) : (
                 <button

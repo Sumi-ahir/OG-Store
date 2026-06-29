@@ -16,7 +16,7 @@ export const useAuth=()=>{
         const data=await login({email,password})
 
    
-    localStorage.setItem("token", data.token)
+    // localStorage.setItem("token", data.token)
         dispatch(setUser(data.user))
         dispatch(setLoading(false))
         return data.user

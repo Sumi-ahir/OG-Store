@@ -46,7 +46,7 @@ const Nav = () => {
             <div onClick={() => navigate("/")}>
               <span
                 onClick={() => navigate("/")}
-                className="text- cursor-pointer font-bold text-2xl font-serif"> OG Store</span>
+                className="no-copy cursor-pointer font-bold text-2xl font-serif"> OG Store</span>
             </div>
 
             {/* Desktop Menu */}

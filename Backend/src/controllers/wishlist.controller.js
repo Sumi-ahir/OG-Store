@@ -65,6 +65,29 @@ export const getWishlist = async (req, res) => {
 };
 
 // REMOVE PRODUCT FROM WISHLIST
+// export const removeWishlistItem = async (req, res) => {
+//   try {
+//     const { productId } = req.params;
+
+//     const wishlist = await wishlistModel.findOne({
+//       user: req.user._id,
+//     });
+//     wishlist.items = wishlist.items.filter(
+//       (item) => item.product.toString() !== productId,
+//     );
+//     await wishlist.save();
+
+//     return res.status(200).json({
+//       sucess: true,
+//       wishlist,
+//     });
+//   } catch (error) {
+//     return res.status(500).json({
+//       success: false,
+//       message: error.message,
+//     });
+//   }
+// };
 export const removeWishlistItem = async (req, res) => {
   try {
     const { productId } = req.params;
@@ -72,13 +95,22 @@ export const removeWishlistItem = async (req, res) => {
     const wishlist = await wishlistModel.findOne({
       user: req.user._id,
     });
+
+    if (!wishlist) {
+      return res.status(404).json({
+        success: false,
+        message: "Wishlist not found",
+      });
+    }
+
     wishlist.items = wishlist.items.filter(
-      (item) => item.product.toString() !== productId,
+      (item) => item.product.toString() !== productId
     );
+
     await wishlist.save();
 
     return res.status(200).json({
-      sucess: true,
+      success: true,
       wishlist,
     });
   } catch (error) {

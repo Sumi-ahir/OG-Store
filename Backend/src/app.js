@@ -12,24 +12,25 @@ import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { config } from "./config/config.js";
 
 const app = express();
-
-app.use(passport.initialize());
-app.use(express.json());
+app.set("trust proxy", 1);
 app.use(cookieParser());
-app.use(express.urlencoded({ extended: true }));
-app.use(morgan("dev"));
+app.use(passport.initialize());
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173", 
-      "http://localhost:5174",
-      "https://og-store-woad.vercel.app"
-    ],
+    origin: 
+      // "http://localhost:5173", 
+      // "http://localhost:5174",
+      process.env.CLIENT_URL
+      // "https://og-store-woad.vercel.app"
+    ,
 
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   }),
 );
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(morgan("dev"));
 app.set("trust proxy", 1);
 console.log("API LAYER LOADED");
 app.get("/", (req, res) => {
