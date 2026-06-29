@@ -15,18 +15,22 @@ const app = express();
 app.set("trust proxy", 1);
 app.use(cookieParser());
 app.use(passport.initialize());
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:5174",
+  "https://og-store-woad.vercel.app",
+];
 app.use(
-  cors({
-    origin: 
-      // "http://localhost:5173", 
-      // "http://localhost:5174",
-      process.env.CLIENT_URL
-      // "https://og-store-woad.vercel.app"
-    ,
-
-    methods: ["GET", "POST", "PUT", "DELETE"],
+   cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
-  }),
+  })
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
