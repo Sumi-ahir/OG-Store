@@ -171,13 +171,12 @@ export const googleCallback = async (req, res) => {
 });
   try {
     const { id, displayName, emails, photos } = req.user;
-console.log("GOOGLE LOGIN EMAIL:", email);
-console.log("USER FROM DB:", user.email);
-console.log("TOKEN FOR:", user._id);
+
     const email = emails[0].value;
     const profilePic = photos[0].value;
     const role = req.user.selectedRole || "buyer";
     let user = await userModel.findOne({ email });
+console.log("GOOGLE LOGIN EMAIL:", email);
 console.log("FOUND USER:", user);
     // CREATE GOOGLE USER
     if (!user) {
@@ -194,7 +193,7 @@ console.log("FOUND USER:", user);
     const token = jwt.sign({ id: user._id }, config.JWT_SECRET, {
       expiresIn: "7d",
     });
-
+console.log("TOKEN FOR:", user._id);
     // COOKIE
 res.cookie("token", token, {
   httpOnly: true,
