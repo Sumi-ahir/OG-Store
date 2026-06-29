@@ -163,14 +163,22 @@ export const getMe = async (req, res) => {
 
 // GOOGLE CALLBACK
 export const googleCallback = async (req, res) => {
+  res.clearCookie("token", {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+  path: "/",
+});
   try {
     const { id, displayName, emails, photos } = req.user;
-
+console.log("GOOGLE LOGIN EMAIL:", email);
+console.log("USER FROM DB:", user.email);
+console.log("TOKEN FOR:", user._id);
     const email = emails[0].value;
     const profilePic = photos[0].value;
     const role = req.user.selectedRole || "buyer";
     let user = await userModel.findOne({ email });
-
+console.log("FOUND USER:", user);
     // CREATE GOOGLE USER
     if (!user) {
       user = await userModel.create({
@@ -197,11 +205,12 @@ res.cookie("token", token, {
 });
 
     // REDIRECT FRONTEND
-    // res.redirect("http://localhost:5173/");
-    if (user.role === "seller") {
-    return res.redirect(`${process.env.CLIENT_URL}/seller/dashboard`);
-    }
-   return res.redirect(process.env.CLIENT_URL);
+    // res.redirect("http://localhost:5173/");   
+   if (user.role === "seller") {
+  return res.redirect(`${process.env.CLIENT_URL}/seller/dashboard`);
+}
+return res.redirect(process.env.CLIENT_URL);
+  
   } catch (error) {
     console.log("Google auth error:", error);
 
@@ -211,4 +220,19 @@ res.cookie("token", token, {
       error: error.message,
     });
   }
+};
+
+// LOGOUT
+export const logout = (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    path: "/",
+  });
+
+  return res.status(200).json({
+    success: true,
+    message: "Logged out successfully",
+  });
 };

@@ -9,7 +9,7 @@ passport.use(
     {
       clientID: config.GOOGLE_CLIENT_ID,
       clientSecret: config.GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:5000/api/auth/google/callback",
+     callbackURL: `${process.env.API_URL}/api/auth/google/callback`,
        passReqToCallback: true,
     },
 
@@ -17,14 +17,14 @@ passport.use(
       try {
         console.log(
           "Callback URL:",
-          "http://localhost:5000/api/auth/google/callback",
+           `${process.env.API_URL}/api/auth/google/callback`,
         );
             profile.selectedRole = req.query.state;
         return done(null, profile);
       } catch (error) {
         console.log(
           "Callback URL:",
-          "http://localhost:5000/api/auth/google/callback",
+           `${process.env.API_URL}/api/auth/google/callback`,
         );
 
         return done(error, null);

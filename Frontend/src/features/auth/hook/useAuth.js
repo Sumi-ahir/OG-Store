@@ -1,5 +1,5 @@
 import { setError,setLoading,setUser } from "../state/auth.slice";
-import { register,login,getMe} from "../service/auth.api";
+import { register,login,getMe,logout} from "../service/auth.api";
 import {useDispatch} from "react-redux";
  import { useNavigate } from "react-router";
 export const useAuth=()=>{
@@ -14,9 +14,6 @@ export const useAuth=()=>{
 
     async function handleLogin({email,password}){
         const data=await login({email,password})
-
-   
-    // localStorage.setItem("token", data.token)
         dispatch(setUser(data.user))
         dispatch(setLoading(false))
         return data.user
@@ -37,5 +34,16 @@ export const useAuth=()=>{
         }
         
     }
+    const handleLogout = async () => {
+  try {
+    await logout();
+
+    dispatch(clearUser());
+
+    navigate("/login");
+  } catch (err) {
+    console.log(err);
+  }
+};
     return {handleRegister,handleLogin,handleGetMe}
 }

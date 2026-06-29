@@ -20,13 +20,9 @@ const App = () => {
   const loading = useSelector((state) => state.auth.loading);
   const cartItems=useSelector((state) => state.cart.carts?.[user?._id] || [])
   // AUTH
-  // useEffect(() => {
-  //   const token = localStorage.getItem("token");
-
-  //   if (token) handleGetMe();
-  //   else dispatch(setLoading(false));
-  // }, []);
-
+  useEffect(() => {
+  console.log("AUTH USER CHANGED:", user);
+}, [user]);
 useEffect(() => {
   console.log("APP LOADED");
   handleGetMe();

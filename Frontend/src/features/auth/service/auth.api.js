@@ -23,3 +23,8 @@ export const getMe = async () => {
   const res = await authApi.get("/me");
   return res.data;
 };
+// LOGOUT
+export const logout = async () => {
+  const res = await authApi.post("/logout");
+  return res.data;
+};

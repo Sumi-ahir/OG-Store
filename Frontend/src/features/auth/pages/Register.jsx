@@ -271,7 +271,7 @@ const Register = () => {
                   onChange={handleChange}
                   placeholder="TheSumi@03"
                   className={`w-full bg-transparent outline-none px-3 py-2  rounded-lg text-gray-900 placeholder-gray-500
-                    ${error.password ? 'border-[#C3ACD0] focus:ring-2 focus:ring-red-300' : ''}
+                    ${error.password ? 'border-[#C3ACD0]':''}
                     `}
                 />
 

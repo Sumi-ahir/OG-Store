@@ -21,10 +21,12 @@ const ProductDetail = () => {
   const images = product?.images || [];
   const user = useSelector((state) => state.auth.user);
   const checkBuyer = () => {
+      console.log("CHECK BUYER USER:", user);
     if (!user) {
       navigate("/login");
       return false;
     }
+      console.log("ROLE:", user.role);
     if (user.role === "seller") {
       navigate("/login");
       return false;

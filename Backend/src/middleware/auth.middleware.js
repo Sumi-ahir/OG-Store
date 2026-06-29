@@ -4,7 +4,7 @@ import userModel from "../models/user.model.js";
 import { config } from "../config/config.js";
 
 export const authenticateUser = async (req, res, next) => {
-    console.log("========== AUTH ==========");
+  console.log("========== AUTH ==========");
   console.log("Origin:", req.headers.origin);
   console.log("Cookie Header:", req.headers.cookie);
   console.log("Parsed Cookies:", req.cookies);
@@ -19,8 +19,10 @@ export const authenticateUser = async (req, res, next) => {
   }
   try {
     const decoded = jwt.verify(token, config.JWT_SECRET);
+    console.log("TOKEN USER ID:", decoded.id);
 
     const user = await userModel.findById(decoded.id);
+    console.log("AUTH USER:", user.email);
 
     if (!user) {
       return res.status(401).json({
@@ -39,4 +41,3 @@ export const authenticateUser = async (req, res, next) => {
     });
   }
 };
-

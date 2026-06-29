@@ -5,6 +5,7 @@ import {
   loginUser,
   getMe,
   googleCallback,
+  logout
 } from "../controllers/auth.controller.js";
 
 import {
@@ -53,5 +54,8 @@ router.get(
 
   googleCallback,
 );
+
+// LOGOUT
+router.post("/logout", logout);
 
 export default router;
