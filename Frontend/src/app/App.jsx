@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import "./App.css";
+import { useState } from "react";
+import { Loader } from "lucide-react";
 import { RouterProvider } from "react-router";
 import { routes } from "./app.routes";
 import { useSelector, useDispatch } from "react-redux";
@@ -90,26 +92,43 @@ data?.wishlist?.items?.map((item) => ({
 
   loadWishlist();
 }, [user, dispatch]);
-if (loading) {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-violet-50 to-purple-100">
-      <div className="flex flex-col items-center gap-5">
 
-        {/* Spinner */}
-        <div className="relative">
-          <div className="w-10 h-10 border-4 border-purple-200 rounded-full"></div>
-          <div className="absolute top-0 left-0 w-10 h-10 border-4 border-[#4b2e6699] border-t-transparent rounded-full animate-spin"></div>
-        </div>
+const [checkingAuth, setCheckingAuth] = useState(true);
+
+useEffect(() => {
+  async function init() {
+    await handleGetMe();
+    setCheckingAuth(false);
+  }
+  init();
+}, []);
+if (checkingAuth) return (
+  <div className="h-screen flex items-center justify-center bg-gradient-to-b from-white/60  to-[#4b2e66] text-white">
+    <span className="animate-pulse tracking-widest">
+      Loading your OG...
+    </span>
+  </div>
+);
+// if (loading) {
+//   return (
+//     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-violet-50 to-purple-100">
+//       <div className="flex flex-col items-center gap-5">
+
+//         {/* Spinner */}
+//         <div className="relative">
+//           <div className="w-10 h-10 border-4 border-purple-200 rounded-full"></div>
+//           <div className="absolute top-0 left-0 w-10 h-10 border-4 border-[#4b2e6699] border-t-transparent rounded-full animate-spin"></div>
+//         </div>
 
 
-        <p className="text-gray-600 font-medium tracking-wide">
-          Loading your experience...
-        </p>
+//         <p className="text-gray-600 font-medium tracking-wide">
+//           Loading your experience...
+//         </p>
 
-      </div>
-    </div>
-  );
-}
+//       </div>
+//     </div>
+//   );
+// }
 
   return <RouterProvider router={routes} />;
 };

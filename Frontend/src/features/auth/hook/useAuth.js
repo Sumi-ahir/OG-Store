@@ -2,6 +2,7 @@ import { setError,setLoading,setUser } from "../state/auth.slice";
 import { register,login,getMe,logout} from "../service/auth.api";
 import {useDispatch} from "react-redux";
  import { useNavigate } from "react-router";
+
 export const useAuth=()=>{
 
     // const navigate = useNavigate();
@@ -18,22 +19,28 @@ export const useAuth=()=>{
         dispatch(setLoading(false))
         return data.user
     }
-    async function handleGetMe(){
-        try{
-        console.log("GET ME CALLED");
-        dispatch(setLoading(true))
-        const data=await getMe()
-         console.log("GET ME RESPONSE:", data);
-         dispatch(setUser(data.user))
-        }catch(error){
-             console.log("GET ME ERROR:", error.response?.data);
-            dispatch(setUser(null));
+    // async function handleGetMe(){
+    //     try{
+    //     dispatch(setLoading(true))
+    //     const data=await getMe()
+    //      dispatch(setUser(data.user))
+    //     }catch(error){
+    //          console.log("GET ME ERROR:", error.response?.data);
+    //         dispatch(setUser(null));
             
-        }finally{
-            dispatch(setLoading(false))
-        }
+    //     }finally{
+    //         dispatch(setLoading(false))
+    //     }
         
-    }
+    // }
+    async function handleGetMe() {
+  try {
+    const data = await getMe();
+    dispatch(setUser(data.user));
+  } catch (error) {
+    dispatch(setUser(null));
+  }
+}
     const handleLogout = async () => {
   try {
     await logout();
