@@ -71,7 +71,6 @@ const Nav = () => {
     absolute
     left-0
     top-full
-    mt-2
     z-50
     hidden
     group-hover:flex
